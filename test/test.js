@@ -59,7 +59,7 @@ function awaitJobCompletion(jobId, callback, tries = 30, wait = 1000) {
 */
 function createMarble(color, quantity=1, cost=1, callback) {
   cmd.get(
-    'zowe console issue command "F CICSTRN1,MB_WORKSHOP_USER_ID_ CRE ' + color + " " + quantity + " " + cost + '" --cn CUST0_WORKSHOP_USER_ID_',
+    'zowe console issue command "F CICSTRN1,MB01 CRE ' + color + " " + quantity + " " + cost + '" --cn CUST001',
     function (err, data, stderr) {
       typeof callback === 'function' && callback(err, data, stderr);
     }
@@ -73,7 +73,7 @@ function createMarble(color, quantity=1, cost=1, callback) {
 */
 function deleteMarble(color, callback) {
   cmd.get(
-    'zowe console issue command "F CICSTRN1,MB_WORKSHOP_USER_ID_ DEL ' + color + '" --cn CUST0_WORKSHOP_USER_ID_',
+    'zowe console issue command "F CICSTRN1,MB01 DEL ' + color + '" --cn CUST001',
     function (err, data, stderr) {
       typeof callback === 'function' && callback(err, data, stderr);
     }
@@ -89,7 +89,7 @@ function deleteMarble(color, callback) {
 function getMarbleQuantity(color, callback) {
   // Submit job, await completion
   cmd.get(
-    'zowe jobs submit data-set "CUST0_WORKSHOP_USER_ID_.MARBLES.JCL(MARBDB2)" --rff jobid --rft string',
+    'zowe jobs submit data-set "CUST001.MARBLES.JCL(MARBDB2)" --rff jobid --rft string',
     function (err, data, stderr) {
       if(err){
         callback(err);
@@ -137,7 +137,7 @@ function getMarbleQuantity(color, callback) {
 */
 function updateMarble(color, quantity, callback) {
   cmd.get(
-    'zowe console issue command "F CICSTRN1,MB_WORKSHOP_USER_ID_ UPD ' + color + " " + quantity + '" --cn CUST0_WORKSHOP_USER_ID_',
+    'zowe console issue command "F CICSTRN1,MB01 UPD ' + color + " " + quantity + '" --cn CUST001',
     function (err, data, stderr) {
       typeof callback === 'function' && callback(err, data, stderr);
     }
@@ -179,7 +179,7 @@ describe('Marbles', function () {
    * Verify approrpiate error message is returned
    */
   describe('Inventory Manipulation', function () {
-    const COLOR = "_WORKSHOP_USER_COLOR_";
+    const COLOR = "RED";
 
     // Delete the marble to reset inventory to zero (Delete will be tested later)
     before(function(done){

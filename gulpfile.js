@@ -48,7 +48,7 @@ function sleep(ms) {
 }
 
 gulp.task('bind-n-grant', 'Bind & Grant Job', function (callback) {
-  var command = 'zowe jobs submit data-set "CUST0_WORKSHOP_USER_ID_.MARBLES.JCL(MARBIND)" --rff jobid --rft string';
+  var command = 'zowe jobs submit data-set "CUST001.MARBLES.JCL(MARBIND)" --rff jobid --rft string';
   
   // Submit job, await completion
   cmd.get(command, function (err, data, stderr) {
@@ -73,7 +73,7 @@ gulp.task('bind-n-grant', 'Bind & Grant Job', function (callback) {
 });
 
 gulp.task('build', 'Build COBOL program', function (callback) {
-  var command = 'zowe jobs submit data-set "CUST0_WORKSHOP_USER_ID_.MARBLES.JCL(MARSGEN)" --rff jobid --rft string';
+  var command = 'zowe jobs submit data-set "CUST001.MARBLES.JCL(MARSGEN)" --rff jobid --rft string';
   
   // Submit job, await completion
   cmd.get(command, function (err, data, stderr) {
@@ -97,9 +97,9 @@ gulp.task('build', 'Build COBOL program', function (callback) {
   });
 });
 
-gulp.task('cics-refresh', 'Refresh(new-copy) MARBLE_WORKSHOP_USER_ID_ CICS Program', function (callback) {
+gulp.task('cics-refresh', 'Refresh(new-copy) MARBLE01 CICS Program', function (callback) {
   var cics = (typeof process.env.CICS === "undefined") ? "" : process.env.CICS,
-      command = 'zowe cics refresh program "MARBLE_WORKSHOP_USER_ID_" ' + cics;
+      command = 'zowe cics refresh program "MARBLE01" ' + cics;
 
   cmd.get(command, function (err, data, stderr) {
     if(err){
@@ -113,7 +113,7 @@ gulp.task('cics-refresh', 'Refresh(new-copy) MARBLE_WORKSHOP_USER_ID_ CICS Progr
 });
 
 gulp.task('copy', 'Copy program to test environment', function (callback) {
-  var command = 'zowe jobs submit data-set "CUST0_WORKSHOP_USER_ID_.MARBLES.JCL(MARSCOPY)" --rff jobid --rft string';
+  var command = 'zowe jobs submit data-set "CUST001.MARBLES.JCL(MARSCOPY)" --rff jobid --rft string';
   
   // Submit job, await completion
   cmd.get(command, function (err, data, stderr) {
