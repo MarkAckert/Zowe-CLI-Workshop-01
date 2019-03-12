@@ -45,4 +45,17 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            publishHTML([allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'mochawesome-report',
+                reportFiles: 'mochawesome.html',
+                reportName: 'Test Results',
+                reportTitles: 'Test Report'
+                ])
+        }
+    }
 }
